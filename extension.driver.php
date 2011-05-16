@@ -32,6 +32,11 @@
 					'page' => '/blueprints/sections/',
 					'delegate' => 'FieldPostEdit',
 					'callback' => '__saveCustomCaptionToField'
+				),
+				array(
+					'page' => '/blueprints/sections/',
+					'delegate' => 'SectionPostEdit',
+					'callback' => '__cleanUp'
 				)
 			);
 		}
@@ -128,6 +133,19 @@
 
 			// Save custom caption against this field
 			return Symphony::Database()->insert($data, 'tbl_customcaptions', true);
+		}
+
+		public function __cleanUp(&$context) {
+			$section_id = $context['section_id'];
+
+			$section_field_ids = Symphony::Database()->fetchCol("id", "SELECT id FROM tbl_fields WHERE parent_section = " . $section_id);
+			$caption_field_ids = Symphony::Database()->fetchCol("field_id", "SELECT field_id FROM tbl_customcaptions WHERE section_id = " . $section_id);
+
+			$field_ids = array_diff($caption_field_ids, $section_field_ids);
+
+			if(!empty($field_ids)) {
+				Symphony::Database()->delete('`tbl_customcaptions`', 'field_id IN (' . implode(',', $field_ids) . ');');
+			}
 		}
 
 	}
