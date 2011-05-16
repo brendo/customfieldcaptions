@@ -11,8 +11,8 @@
 
 			// Template to clone for each field instance
 			caption_template = jQuery('<i />');
-			
-		if(data !== undefined) {
+
+		if(data != undefined) {
 			$fields.each(function(i) {
 				var $field = jQuery(this),
 					template = caption_template.clone();
