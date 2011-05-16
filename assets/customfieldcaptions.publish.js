@@ -11,15 +11,17 @@
 
 			// Template to clone for each field instance
 			caption_template = jQuery('<i />');
+			
+		if(data !== undefined) {
+			$fields.each(function(i) {
+				var $field = jQuery(this),
+					template = caption_template.clone();
 
-		$fields.each(function(i) {
-			var $field = jQuery(this),
-				template = caption_template.clone();
+				var field_id = $field.attr('id').replace(/^field-/i, '');
 
-			var field_id = $field.attr('id').replace(/^field-/i, '');
+				template.text(data[field_id].caption_formatted);
 
-			template.text(data[field_id].caption_formatted);
-
-			$field.find('label > input').before(template);
-		});
+				$field.find('label > input').before(template);
+			});
+		}
 	});

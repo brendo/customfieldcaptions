@@ -34,7 +34,10 @@
 
 			template.find('input')
 				.attr('name', 'fields[' + i + '][custom_caption]')
-				.val(data[field_id].caption);
+
+			if(data !== undefined) {
+				template.val(data[field_id].caption);
+			}
 
 			$field.find('div.content > :last-child').before(template);
 		});
