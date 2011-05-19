@@ -5,8 +5,8 @@
 		public function about() {
 			return array(
 				'name' => 'Custom Field Captions',
-				'version' => '0.1',
-				'release-date' => '2011-05-13',
+				'version' => '0.2',
+				'release-date' => '2011-05-19',
 				'author' => array(
 					'name' => 'Brendan Abbott',
 					'website' => 'http://bloodbone.ws',
@@ -47,7 +47,6 @@
 					`field_id` INT(4) UNSIGNED DEFAULT NULL,
 					`section_id` INT(4) UNSIGNED DEFAULT NULL,
 					`caption` TINYTEXT DEFAULT NULL,
-					`caption_formatted` TINYTEXT DEFAULT NULL,
 					PRIMARY KEY (`field_id`),
 					UNIQUE KEY field_id_section_id (`field_id`, `section_id`)
 				) ENGINE=MyISAM
@@ -76,16 +75,14 @@
 		}
 
 		public function getCustomCaptionsForSection($section_id = null) {
-			if(is_null($section_id)) return array();
-
-			if(!is_numeric($section_id)) {
+			if(!is_null($section_id) && !is_numeric($section_id)) {
 				$section_id = Symphony::Database()->fetchVar('id', 0, "SELECT `id` FROM `tbl_sections` WHERE `handle` = '$section_id' LIMIT 1");
 			}
 
 			if(is_null($section_id)) return array();
 
 			return Symphony::Database()->fetch("
-				SELECT field_id, caption, caption_formatted
+				SELECT field_id, caption
 				FROM tbl_customcaptions
 				WHERE section_id = " . $section_id,
 				'field_id'
@@ -127,8 +124,7 @@
 			$data = array(
 				'field_id' => $field->get('id'),
 				'section_id' => $field->get('parent_section'),
-				'caption' => $field->get('custom_caption'),
-				'caption_formatted' => General::sanitize($field->get('custom_caption'))
+				'caption' => $field->get('custom_caption')
 			);
 
 			// Save custom caption against this field
@@ -141,6 +137,8 @@
 			$section_field_ids = Symphony::Database()->fetchCol("id", "SELECT id FROM tbl_fields WHERE parent_section = " . $section_id);
 			$caption_field_ids = Symphony::Database()->fetchCol("field_id", "SELECT field_id FROM tbl_customcaptions WHERE section_id = " . $section_id);
 
+			// If we have any Field ID's that tbl_fields doesn't have
+			// remove them, as they have been deleted from the section
 			$field_ids = array_diff($caption_field_ids, $section_field_ids);
 
 			if(!empty($field_ids)) {
@@ -149,5 +147,3 @@
 		}
 
 	}
-
-?>

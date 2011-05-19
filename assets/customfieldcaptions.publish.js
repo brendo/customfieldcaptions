@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------------
-	Section Editor
+	Publish page
 -----------------------------------------------------------------------------*/
 
 	jQuery(document).ready(function() {
@@ -15,13 +15,16 @@
 		if(data != undefined) {
 			$fields.each(function(i) {
 				var $field = jQuery(this),
+					field_id = $field.attr('id').replace(/^field-/i, '');
+
+				if($field.find('i').length) {
+					$field.find('i').text(data[field_id].caption);
+				}
+				else {
 					template = caption_template.clone();
-
-				var field_id = $field.attr('id').replace(/^field-/i, '');
-
-				template.text(data[field_id].caption_formatted);
-
-				$field.find('label > input').before(template);
+					template.text(data[field_id].caption);
+					$field.find('label > input').before(template);
+				}
 			});
 		}
 	});
