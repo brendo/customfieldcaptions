@@ -57,7 +57,7 @@
 				var template = field_template.clone();
 
 				template.find('input')
-					.attr('name', 'fields[' + $field.index() + '][custom_caption]')
+					.attr('name', 'fields[' + ($field.index() - 1) + '][custom_caption]')
 
 				addCaption($field, template);
 			}

@@ -5,8 +5,8 @@
 		public function about() {
 			return array(
 				'name' => 'Custom Field Captions',
-				'version' => '0.2',
-				'release-date' => '2011-05-19',
+				'version' => '0.3',
+				'release-date' => '2011-05-22',
 				'author' => array(
 					'name' => 'Brendan Abbott',
 					'website' => 'http://bloodbone.ws',
