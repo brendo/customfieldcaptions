@@ -14,10 +14,10 @@
 
 		if(data != undefined) {
 			$fields.each(function(i) {
-				if(data[field_id] == undefined) return;
-				
 				var $field = jQuery(this),
 					field_id = $field.attr('id').replace(/^field-/i, '');
+
+				if(data[field_id] == undefined) return;
 
 				if($field.find('i').length) {
 					$field.find('i').text(data[field_id].caption);
