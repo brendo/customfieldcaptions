@@ -5,7 +5,7 @@
 		public function about() {
 			return array(
 				'name' => 'Custom Field Captions',
-				'version' => '0.3',
+				'version' => '0.3.1',
 				'release-date' => '2011-05-22',
 				'author' => array(
 					'name' => 'Brendan Abbott',
