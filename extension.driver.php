@@ -49,7 +49,7 @@
 					`caption` TINYTEXT DEFAULT NULL,
 					PRIMARY KEY (`field_id`),
 					UNIQUE KEY field_id_section_id (`field_id`, `section_id`)
-				) ENGINE=MyISAM
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 			');
 		}
 
