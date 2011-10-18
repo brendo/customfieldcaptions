@@ -25,7 +25,7 @@
 				else {
 					template = caption_template.clone();
 					template.text(data[field_id].caption);
-					$field.find('label > :input, label > .frame').before(template);
+					$field.find('label > :input:last, label > .frame').before(template);
 				}
 			});
 		}
