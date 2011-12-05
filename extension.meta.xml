@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="customfieldcaptions">
+	<name>Custom Field Captions</name>
+	<description>Allows you to add helpful hints to fields for your clients</description>
+	<repo type="github">https://github.com/brendo/customfieldcaptions</repo>
+	<url type="discuss">http://symphony-cms.com/discuss/thread/69247/</url>
+	<types>
+		<type>Interface</type>
+	</types>
+	<authors>
+		<author>
+			<name github="brendo" symphony="brendo">Brendan Abbott</name>
+			<website>http://www.bloodbone.ws</website>
+		</author>
+	</authors>
+	<releases>
+		<release version="0.3.2" date="2011-08-13" min="2.2" />
+	</releases>
+</extension>
