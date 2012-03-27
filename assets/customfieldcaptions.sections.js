@@ -28,15 +28,14 @@
 
 			// Inject the template into current $field
 			addCaption = function($field, template) {
-				$field.find('div.content > :last-child').before(template);
+				$field.find('div.content label:first').after(template);
 			};
 
 		// Initially run over the all the existing fields
 		$fields.each(function(i) {
 			var $field = jQuery(this),
+				field_id = $field.find(':hidden[name*=id]').val(),
 				template = field_template.clone();
-
-			var field_id = $field.find(':hidden[name*=id]').val();
 
 			template.find('input')
 				.attr('name', 'fields[' + i + '][custom_caption]')

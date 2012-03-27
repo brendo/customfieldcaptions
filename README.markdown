@@ -1,8 +1,8 @@
 # Custom Field Captions
 
-* Version: 0.3.2
+* Version: 0.3.3
 * Author: Brendan Abbott
-* Build Date: 13th August 2011
+* Build Date: 27th March 2012
 * Requirements: Symphony 2.2
 
 Adds the ability to have a custom caption for each field on the Publish interface. Note that custom captions will override the default 'Optional' text and always replace it with your custom text.
@@ -17,4 +17,4 @@ Adds the ability to have a custom caption for each field on the Publish interfac
 
 ## Credits
 
-Credit to @ahwayakchih for the implementation idea, and he doesn't even know it :)
+Credit to **@ahwayakchih** for the implementation idea, and he doesn't even know it :)
