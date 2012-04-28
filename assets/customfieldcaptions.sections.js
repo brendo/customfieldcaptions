@@ -37,6 +37,19 @@
 				else {
 					$input.after(template);
 				}
+			},
+
+			// Inject template on the fly (as new fields as added)
+			insertCaption = function($field) {
+				// If the field doesn't have a captions field already, add one
+				if($field.filter(':has(input[name*=custom_caption])').length == 0) {
+					var template = field_template.clone();
+
+					template.find('input')
+						.attr('name', 'fields[' + ($field.index() - 1) + '][custom_caption]')
+
+					addCaption($field, template);
+				}
 			};
 
 		// Initially run over the all the existing fields
@@ -55,18 +68,14 @@
 			addCaption($field, template);
 		});
 
-		// Listen for when the duplicator changes
+		// Listen for when the duplicator changes [2.2.5]
 		$duplicator.bind('click.duplicator', function() {
-			var $field = $duplicator.find('.instance:last');
-
-			// If the field doesn't have a captions field already, add one
-			if($field.filter(':has(input[name*=custom_caption])').length == 0) {
-				var template = field_template.clone();
-
-				template.find('input')
-					.attr('name', 'fields[' + ($field.index() - 1) + '][custom_caption]')
-
-				addCaption($field, template);
-			}
+			insertCaption($duplicator.find('.instance:last'));
 		});
+
+		// Listen for when the duplicator changes [2.3]
+		jQuery('.frame').on('constructshow.duplicator', 'li', function() {
+			insertCaption(jQuery(this));
+		});
+
 	});
