@@ -10,7 +10,7 @@
 			data = Symphony.Context.get('custom_captions'),
 
 			// Template to clone for each field instance
-			caption_template = jQuery('<i />');
+			caption_template = jQuery('<span />').addClass('cc');
 
 		if(data === undefined) return;
 
@@ -20,14 +20,9 @@
 
 			if(isNaN(parseInt(field_id)) || data[field_id].caption == undefined) return;
 
-			if($field.find('i').length) {
-				$field.find('i').text(data[field_id].caption);
-			}
-			else {
-				template = caption_template.clone();
-				template.text(data[field_id].caption);
+			template = caption_template.clone();
+			template.html(data[field_id].caption);
 
-				$field.find('label > :input:last, label > .frame').before(template);
-			}
+			$field.find('label > :input:last, label > .frame').before(template);
 		});
 	});

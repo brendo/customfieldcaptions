@@ -105,7 +105,7 @@
 					$data = $this->getCustomCaptionsForSection($callback['context'][1]);
 					$this->addContextToPage($data);
 
-					Administration::instance()->Page->addScriptToHead(URL . '/extensions/customfieldcaptions/assets/customfieldcaptions.sections.js', 10001, false);
+					Administration::instance()->Page->addScriptToHead(URL . '/extensions/customfieldcaptions/assets/customfieldcaptions.sections.js', 101, false);
 				}
 
 				// Publish Page
@@ -113,7 +113,8 @@
 					$data = $this->getCustomCaptionsForSection($callback['context']['section_handle']);
 					$this->addContextToPage($data);
 
-					Administration::instance()->Page->addScriptToHead(URL . '/extensions/customfieldcaptions/assets/customfieldcaptions.publish.js', 10001, false);
+					Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/customfieldcaptions/assets/customfieldcaptions.publish.css', 'all', 101, false);
+					Administration::instance()->Page->addScriptToHead(URL . '/extensions/customfieldcaptions/assets/customfieldcaptions.publish.js', 102, false);
 				}
 			}
 		}
