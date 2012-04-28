@@ -28,7 +28,15 @@
 
 			// Inject the template into current $field
 			addCaption = function($field, template) {
-				$field.find('div.content label:first').after(template);
+				var $input = $field.find('div.content label:first'),
+					$group = $input.closest('.group');
+
+				if($group.length) {
+					$group.after(template);
+				}
+				else {
+					$input.after(template);
+				}
 			};
 
 		// Initially run over the all the existing fields
