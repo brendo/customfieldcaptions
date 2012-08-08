@@ -2,20 +2,6 @@
 
 	Class Extension_CustomFieldCaptions extends Extension {
 
-		public function about() {
-			return array(
-				'name' => 'Custom Field Captions',
-				'version' => '0.3.3',
-				'release-date' => '2012-03-27',
-				'author' => array(
-					'name' => 'Brendan Abbott',
-					'website' => 'http://bloodbone.ws',
-					'email' => 'brendan@bloodbone.ws'
-				),
-				'description' => 'Adds the ability to have a custom caption for each field on the Publish interface.'
-			);
-		}
-
 		public function getSubscribedDelegates() {
 			return array(
 				array(
@@ -61,7 +47,7 @@
 		Utilities:
 	-------------------------------------------------------------------------*/
 
-		private function addContextToPage(Array $data = array()) {
+		private function addContextToPage(array $data = array()) {
 			if(!empty($data)) {
 				// Get current Captions and inject into Symphony Context
 				Administration::instance()->Page->addElementToHead(
@@ -76,15 +62,17 @@
 
 		public function getCustomCaptionsForSection($section_id = null) {
 			if(!is_null($section_id) && !is_numeric($section_id)) {
-				$section_id = Symphony::Database()->fetchVar('id', 0, "SELECT `id` FROM `tbl_sections` WHERE `handle` = '$section_id' LIMIT 1");
+				$section_id = SectionManager::fetchIDFromHandle($section_id);
 			}
 
 			if(is_null($section_id)) return array();
 
-			return Symphony::Database()->fetch("
-				SELECT field_id, caption
-				FROM tbl_customcaptions
-				WHERE section_id = " . $section_id,
+			return Symphony::Database()->fetch(sprintf("
+					SELECT field_id, caption
+					FROM tbl_customcaptions
+					WHERE section_id = %d;",
+					$section_id
+				),
 				'field_id'
 			);
 		}
@@ -133,10 +121,15 @@
 		}
 
 		public function __cleanUp(&$context) {
-			$section_id = $context['section_id'];
+			$section_id = (int)$context['section_id'];
 
-			$section_field_ids = Symphony::Database()->fetchCol("id", "SELECT id FROM tbl_fields WHERE parent_section = " . $section_id);
 			$caption_field_ids = Symphony::Database()->fetchCol("field_id", "SELECT field_id FROM tbl_customcaptions WHERE section_id = " . $section_id);
+
+			$section_schema = FieldManager::fetchFieldsSchema($section_id);
+			$section_field_ids = array();
+			foreach($section_schema as $field) {
+				$section_field_ids[] = $field['id'];
+			}
 
 			// If we have any Field ID's that tbl_fields doesn't have
 			// remove them, as they have been deleted from the section
