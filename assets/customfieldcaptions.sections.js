@@ -29,10 +29,10 @@
 			// Inject the template into current $field
 			addCaption = function($field, template) {
 				var $input = $field.find('div.content label:first'),
-					$group = $input.closest('.group');
+					$input_container = $input.closest('div:not(.content, .invalid)');
 
-				if($group.length) {
-					$group.after(template);
+				if($input_container.length) {
+					$input_container.after(template);
 				}
 				else {
 					$input.after(template);
@@ -61,21 +61,15 @@
 			template.find('input')
 				.attr('name', 'fields[' + i + '][custom_caption]')
 
-			if(data != undefined) {
+			if(data != undefined && field_id != undefined) {
 				template.find('input').val(data[field_id].caption);
 			}
 
 			addCaption($field, template);
 		});
 
-		// Listen for when the duplicator changes [2.2.5]
-		$duplicator.bind('click.duplicator', function() {
-			insertCaption($duplicator.find('.instance:last'));
-		});
-
 		// Listen for when the duplicator changes [2.3]
 		jQuery('.frame').on('constructshow.duplicator', 'li', function() {
 			insertCaption(jQuery(this));
 		});
-
 	});
