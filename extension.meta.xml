@@ -18,7 +18,7 @@
 			- Break compatibility with Symphony 2.2.x
 			- [#13](https://github.com/brendo/customfieldcaptions/issues/13) - Fix errors in Symphony 2.3 when saving sections
 		</release>
-		<release version="0.3.3" date="2012-03-27" min="2.2" max="2.3">
+		<release version="0.3.3" date="2012-03-27" min="2.2" max="2.2.5">
 			- Compatibility for Symphony 2.3
 		</release>
 		<release version="0.3.2" date="2011-08-13" min="2.2" />

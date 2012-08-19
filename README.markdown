@@ -2,7 +2,7 @@
 
 * Version: 0.4
 * Author: Brendan Abbott
-* Build Date: 27th March 2012
+* Build Date: 20th August 2012
 * Requirements: Symphony 2.3
 
 Adds the ability to have a custom caption for each field on the Publish interface. Note that custom captions will override the default 'Optional' text and always replace it with your custom text.
