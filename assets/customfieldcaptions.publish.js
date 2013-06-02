@@ -16,13 +16,19 @@
 
 		$fields.each(function(i) {
 			var $field = jQuery(this),
-				field_id = $field.attr('id').replace(/^field-/i, '');
+				field_id = $field.attr('id').replace(/^field-/i, ''),
+				$inputs = $field.find('label > :input');
+				$label = $field.find('label > :input:last, label > .frame');
 
 			if(isNaN(parseInt(field_id)) || data[field_id].caption == undefined) return;
 
 			template = caption_template.clone();
 			template.html(data[field_id].caption);
 
-			$field.find('label > :input:last, label > .frame').before(template);
+			if (!$label.length || $inputs.length > 1) {
+				$field.find('label:first').append(template);
+			} else {
+				$label.before(template);
+			}
 		});
 	});
